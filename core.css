@@ -33,6 +33,8 @@ a {
     left: 10px;
     top: 50%;
     transform: translate(0, -50%);
+    opacity: 0;
+    animation: animate-opacity 0.5s linear 0.2s forwards;
 }
 
 .navitem {
@@ -95,7 +97,7 @@ a {
     height: 100%; 
     right: 0;
     opacity: 0;
-    animation: animate-opacity 3s linear 0.2s forwards;
+    animation: animate-opacity 1.5s linear 0.2s forwards;
 }
 
 @keyframes animate-opacity {
@@ -108,6 +110,8 @@ a {
     top: 50%;
     transform: translateY(-50%);
     left: 150px;
+    opacity: 0;
+    animation: animate-opacity 0.5s linear 0.2s forwards;
 }
 
 #frontpage-header > h1 {
@@ -134,4 +138,6 @@ a {
     bottom: 10%;
     position: absolute;
     left: 150px;
+    opacity: 0;
+    animation: animate-opacity 0.5s linear 0.2s forwards;
 }
