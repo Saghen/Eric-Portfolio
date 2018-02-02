@@ -87,9 +87,20 @@ a {
 /* Front Page */
 #particles-js {
     background: #001E1C;
-    background-size: contain;
-    background-position: 100% 100%;
-    background-repeat: no-repeat;
+}
+
+#frontpage-img {
+    position:absolute; 
+    filter: saturate(50%);
+    height: 100%; 
+    right: 0;
+    opacity: 0;
+    animation: animate-opacity 3s linear 0.2s forwards;
+}
+
+@keyframes animate-opacity {
+    from {opacity: 0;}
+    to {opacitY: 100;}
 }
 
 #frontpage-header {
