@@ -53,6 +53,13 @@ p {
     margin: 0;
 }
 
+#glCanvas {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 100px;
+}
+
 /* Navigation */
 #fixed {
     position: fixed;
