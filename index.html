@@ -128,10 +128,7 @@
             });
 
             loader.load('Drone.fbx',function ( mesh ) {
-                //mesh.children[0].geometry.computeVertexNormals();
                 mesh.children[0].material = material;
-
-
                 scene.add( mesh );
             },function ( xhr ) {
                 console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
