@@ -121,29 +121,35 @@
 
             var loader = new THREE.FBXLoader();
 
-            var material = new THREE.MeshStandardMaterial({
+            var material2 = new THREE.MeshStandardMaterial({
                 color: 0x33cccc,
                 metalness: 0.7,
                 roughness: 0.7,
             });
 
-            loader.load('Drone.fbx',function ( mesh ) {
-                mesh.children[0].material = material;
-                scene.add( mesh );
-            },function ( xhr ) {
-                console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
-            },function ( error ) {
-                console.log( 'An error happened' );
+            var color
+
+            loader.load('Drone.fbx', function (mesh) {
+                /*mesh.children.forEach(function (element) {
+                    var material = new THREE.MeshStandardMaterial({
+                        color: element.material.color,
+                        metalness: 1,
+                        roughness: 0.7,
+                    });
+                    element.material = material;
+                });*/
+
+                scene.add(mesh);
             });
 
-            var camera = new THREE.PerspectiveCamera( 45, window.innerWidth/window.innerHeight, 0.1, 1000 );
+            var camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
 
-            var ambientLight = new THREE.AmbientLight( 0xcccccc, 0.4 );
-            scene.add( ambientLight );
+            var ambientLight = new THREE.AmbientLight(0xcccccc, 0.4);
+            scene.add(ambientLight);
 
-            light = new THREE.DirectionalLight( 0xdfebff, 1 );
-            light.position.set( 50, 200, 100 );
-            light.position.multiplyScalar( 1.3 );
+            light = new THREE.DirectionalLight(0xdfebff, 1);
+            light.position.set(50, 200, 100);
+            light.position.multiplyScalar(1.3);
 
             camera.add(light);
 
@@ -153,11 +159,11 @@
             renderer.domElement.id = "glCanvas";
             document.getElementById("aboutme").appendChild(renderer.domElement);
 
-            camera.position.z = 5;
+            camera.position.z = 13;
 
             // controls
 
-            var controls = new THREE.OrbitControls( camera, renderer.domElement );
+            var controls = new THREE.OrbitControls(camera, renderer.domElement);
             controls.autoRotate = true;
 
             window.addEventListener('resize', onWindowResize, false);
