@@ -57,7 +57,7 @@ p {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    right: 100px;
+    left: 600px;
 }
 
 /* Navigation */
@@ -126,6 +126,7 @@ p {
 /* Front Page */
 #particles-js {
     background: #001E1C;
+    height: 100%;
 }
 
 #frontpage-img {
@@ -134,7 +135,7 @@ p {
     height: 100%; 
     right: 0;
     opacity: 0;
-    animation: animate-opacity 1.5s linear 0.2s forwards;
+    animation: animate-opacity 1.5s linear 1s forwards;
 }
 
 @keyframes animate-opacity {
