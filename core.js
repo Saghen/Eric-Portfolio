@@ -3,9 +3,7 @@ document.addEventListener("DOMContentLoaded", function() {
     console.log('callback - particles.js config loaded');
   });
 
-  var loadingDiv = document.getElementById('loading-screen');
-  loadingDiv.setAttribute("id", "loading-fade");
-
+  //Setup WebGL
   var scene = new THREE.Scene();
 
   var loader = new THREE.FBXLoader();
@@ -88,4 +86,8 @@ document.addEventListener("DOMContentLoaded", function() {
 
   //Begin rendering frames
   animate();
+
+  //Remove Loading Screen
+  var loadingDiv = document.getElementById('loading-screen');
+  loadingDiv.setAttribute("id", "loading-fade");
 });
