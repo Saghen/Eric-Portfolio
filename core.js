@@ -1,75 +1,87 @@
 window.onload = function () {
-particlesJS.load('particles-js', 'js/particlesjs-config.json', function() {
+  particlesJS.load('particles-js', 'js/particlesjs-config.json', function () {
     console.log('callback - particles.js config loaded');
   });
   var scene = new THREE.Scene();
 
-            var loader = new THREE.FBXLoader();
+  var loader = new THREE.FBXLoader();
 
-            var material2 = new THREE.MeshStandardMaterial({
-                color: 0x33cccc,
-                metalness: 0.7,
-                roughness: 0.7,
-            });
+  var material2 = new THREE.MeshStandardMaterial({
+    color: 0x33cccc,
+    metalness: 0.7,
+    roughness: 0.7,
+  });
 
-            var color
+  var color
 
-            loader.load('Drone.fbx', function (mesh) {
-                /*mesh.children.forEach(function (element) {
-                    var material = new THREE.MeshStandardMaterial({
-                        color: element.material.color,
-                        metalness: 1,
-                        roughness: 0.7,
-                    });
-                    element.material = material;
-                });*/
+  loader.load('Drone.fbx', function (mesh) {
+    /*mesh.children.forEach(function (element) {
+        var material = new THREE.MeshStandardMaterial({
+            color: element.material.color,
+            metalness: 1,
+            roughness: 0.7,
+        });
+        element.material = material;
+    });*/
 
-                scene.add(mesh);
-            });
+    scene.add(mesh);
+  });
 
-            var camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
+  var camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
 
-            var ambientLight = new THREE.AmbientLight(0xcccccc, 0.4);
-            scene.add(ambientLight);
+  var ambientLight = new THREE.AmbientLight(0xcccccc, 0.4);
+  scene.add(ambientLight);
 
-            light = new THREE.DirectionalLight(0xdfebff, 1);
-            light.position.set(50, 200, 100);
-            light.position.multiplyScalar(1.3);
+  light = new THREE.DirectionalLight(0xdfebff, 1);
+  light.position.set(50, 200, 100);
+  light.position.multiplyScalar(1.3);
 
-            camera.add(light);
+  camera.add(light);
 
-            scene.add(camera);
+  scene.add(camera);
 
-            var renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-            renderer.domElement.id = "glCanvas";
-            document.getElementById("aboutme").appendChild(renderer.domElement);
+  var renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+  renderer.domElement.id = "glCanvas";
+  document.getElementById("aboutme").appendChild(renderer.domElement);
 
-            camera.position.z = 13;
+  camera.position.z = 13;
 
-            // controls
+  // controls
 
-            var controls = new THREE.OrbitControls(camera, renderer.domElement);
-            controls.autoRotate = true;
+  var controls = new THREE.OrbitControls(camera, renderer.domElement);
+  controls.autoRotate = true;
 
-            window.addEventListener('resize', onWindowResize, false);
+  window.addEventListener('resize', onWindowResize, false);
 
-            //Functions for rendering frames and handling window resizes
+  //Functions for rendering frames and handling window resizes
 
-            var animate = function () {
-                requestAnimationFrame(animate);
-                controls.update();
-                renderer.render(scene, camera);
-            };
+  var animate = function () {
+    requestAnimationFrame(animate);
+    controls.update();
+    renderer.render(scene, camera);
+  };
 
-            function onWindowResize() {
-                camera.aspect = (window.innerWidth - 800) / (window.innerHeight * 0.66);
-                camera.updateProjectionMatrix();
-                renderer.setSize(window.innerWidth - 800, window.innerHeight * 0.66);
-            }
+  function onWindowResize() {
+    if (window.innerWidth < 1200) {
+      camera.aspect = (window.innerWidth - 300) / (window.innerWidth - 300);
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth - 300, window.innerWidth - 300);
+    }
+    else if (window.innerWidth > 1800) {
+      camera.aspect = (window.innerWidth - 1100) / (window.innerHeight * 0.66);
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth - 1100, window.innerHeight * 0.66);
+    }
+    else {
+      camera.aspect = (window.innerWidth - 600) / (window.innerHeight * 0.66);
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth - 600, window.innerHeight * 0.66);
+    }
+  }
 
-            //Resize the Window according to the current size
-            onWindowResize();
+  //Resize the Window according to the current size
+  onWindowResize();
 
-            //Begin rendering frames
-            animate();
+  //Begin rendering frames
+  animate();
 }
