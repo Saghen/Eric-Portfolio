@@ -53,13 +53,6 @@ p {
     margin: 0;
 }
 
-#glCanvas {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    left: 600px;
-}
-
 /* Navigation */
 #fixed {
     position: fixed;
@@ -173,8 +166,8 @@ p {
     height: 900px;
     padding: 0 150px;
     display: flex;
-    flex-direction: column;
-    justify-content: center;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .small-header {
@@ -190,6 +183,10 @@ p {
 
 .info-box-text {
     width: 500px;
+}
+
+#glcanvas {
+    margin: auto;
 }
 
 .header-typing {
