@@ -1,8 +1,15 @@
-document.addEventListener("DOMContentLoaded", function() {
-  particlesJS.load('particles-js', 'js/particlesjs-config.json', function () {
-    console.log('callback - particles.js config loaded');
-  });
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
 
+async function removeLoadingScreen() {
+  var loadingDiv = document.getElementById('loading-screen');
+  loadingDiv.classList.add('loading-fade');
+  await sleep(400);
+  loadingDiv.style.display = "none";
+}
+
+function init() {
   //Setup WebGL
   var scene = new THREE.Scene();
 
@@ -17,16 +24,10 @@ document.addEventListener("DOMContentLoaded", function() {
   var color
 
   loader.load('Drone.fbx', function (mesh) {
-    /*mesh.children.forEach(function (element) {
-        var material = new THREE.MeshStandardMaterial({
-            color: element.material.color,
-            metalness: 1,
-            roughness: 0.7,
-        });
-        element.material = material;
-    });*/
-
     scene.add(mesh);
+
+    //Remove Loading Screen
+    removeLoadingScreen();
   });
 
   var camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
@@ -86,8 +87,25 @@ document.addEventListener("DOMContentLoaded", function() {
 
   //Begin rendering frames
   animate();
+}
 
-  //Remove Loading Screen
-  var loadingDiv = document.getElementById('loading-screen');
-  loadingDiv.setAttribute("id", "loading-fade");
+$(document).ready(function () {
+  particlesJS.load('particles-js', 'js/particlesjs-config.json', function () {
+    console.log('callback - particles.js config loaded');
+  });
+
+  //Setup Rellax
+  var rellax = new Rellax('.rellax', {
+    speed: -2,
+    center: false,
+    round: true,
+    vertical: true,
+    horizontal: false
+  });
+
+  //Setup WebGL
+  init();
+
+
 });
+
