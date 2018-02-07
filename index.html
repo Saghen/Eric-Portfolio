@@ -26,7 +26,20 @@
 </head>
 
 <body>
-    <div id="particles-js">
+    <div id="loading-screen">
+        <div class="sk-cube-grid">
+            <div class="sk-cube sk-cube1"></div>
+            <div class="sk-cube sk-cube2"></div>
+            <div class="sk-cube sk-cube3"></div>
+            <div class="sk-cube sk-cube4"></div>
+            <div class="sk-cube sk-cube5"></div>
+            <div class="sk-cube sk-cube6"></div>
+            <div class="sk-cube sk-cube7"></div>
+            <div class="sk-cube sk-cube8"></div>
+            <div class="sk-cube sk-cube9"></div>
+        </div>
+    </div>
+    <div id="particles-js" class="rellax" data-rellax-speed="-10">
         <img src="imgs/Circuit.png" id="frontpage-img">
         <div id="frontpage-header">
             <h1>Sea of Electrons</h1>
@@ -96,8 +109,10 @@
             </li>
         </ul>
     </div>
-    <div class="info-box" id="aboutme">
-        <div class="info-box-header"><h2 class="small-header">ABOUT ME</h2></div>
+    <div class="info-box" id="aboutme" style="background:#222;">
+        <div class="info-box-header">
+            <h2 class="small-header">ABOUT ME</h2>
+        </div>
         <div class="info-box-text">
             <h3 class="header-typing">Hello World</h3>
             <p>A bunch of information about what you do and all your professions and all that stuff. Time for some sample text.
@@ -115,26 +130,38 @@
         </div>
     </div>
     <div class="info-box" style="background:#292929;">
-            <div class="info-box-header"><h2 class="small-header">EXPERIENCE</h2></div>
-            <div class="info-box-text" id="experience">
-                <h3 class="header-typing">Where I've Worked</h3>
-                <p>A bunch of information about what you do and all your professions and all that stuff. Time for some sample text.
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-                    magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                    consequat.
-                    <br>
-                    <br>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur
-                    sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                    <br>
-                    <br>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem
-                    aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
-                    Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores
-                    eos qui ratione voluptatem sequi nesciunt.</p>
-            </div>
+        <div class="info-box-header">
+            <h2 class="small-header">EXPERIENCE</h2>
         </div>
+        <div class="info-box-text" id="experience">
+            <h3 class="header-typing">Where I've Worked</h3>
+            <p>A bunch of information about what you do and all your professions and all that stuff. Time for some sample text.
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+                magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                consequat.
+                <br>
+                <br>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur
+                sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                <br>
+                <br>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem
+                aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
+                Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores
+                eos qui ratione voluptatem sequi nesciunt.</p>
+        </div>
+    </div>
 </body>
 <script src="js/three.min.js"></script>
 <script src="js/inflate.min.js"></script>
 <script src="js/FBXLoader.js"></script>
 <script src="js/OrbitControls.js"></script>
+<script>
+    var rellax = new Rellax('.rellax', {
+        speed: -2,
+        center: false,
+        round: true,
+        vertical: true,
+        horizontal: false
+    });
+</script>
+
 </html>

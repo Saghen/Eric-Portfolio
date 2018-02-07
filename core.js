@@ -1,7 +1,11 @@
-window.onload = function () {
+document.addEventListener("DOMContentLoaded", function() {
   particlesJS.load('particles-js', 'js/particlesjs-config.json', function () {
     console.log('callback - particles.js config loaded');
   });
+
+  var loadingDiv = document.getElementById('loading-screen');
+  loadingDiv.setAttribute("id", "loading-fade");
+
   var scene = new THREE.Scene();
 
   var loader = new THREE.FBXLoader();
@@ -84,4 +88,4 @@ window.onload = function () {
 
   //Begin rendering frames
   animate();
-}
+});
