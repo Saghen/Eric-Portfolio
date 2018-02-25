@@ -1,20 +1,18 @@
 <html>
-
 <head>
     <!DOCTYPE html>
     <title>Sea of Electronics</title>
-    <link rel="stylesheet" type="text/css" href="core.css">
+    <link rel="stylesheet" type="text/css" href="css/core.css">
+    <link rel="stylesheet" type="text/css" href="css/home.css">
     <link href="css/materialdesignicons.min.css" media="all" rel="stylesheet" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="css/aos.css">
-    <script src="js/aos.js"></script>
     <script src="js/rellax.min.js"></script>
-    <script src="js/anime.min.js"></script>
     <script src="js/particles.min.js"></script>
     <script src="js/three.min.js"></script>
     <script src="js/inflate.min.js"></script>
     <script src="js/FBXLoader.js"></script>
     <script src="js/OrbitControls.js"></script>
-    <script src="core.js"></script>
+    <script src="js/core.js"></script>
+    <script src="js/home.js"></script>
     <meta charset="utf-8">
     <meta name="description" content="Website for Eric for his blog and things.">
     <meta name="keywords" content="PCBs, Circuits, Technology, Eric Dyer, Coding, Programming">
@@ -30,6 +28,15 @@
 </head>
 
 <body>
+        <header id="Header">
+                <ul id="nav">
+                    <li><a href="#particles-js">Home</a></li>
+                    <li><a href="#aboutme">About</a></li>
+                    <li><a href="#experience">Experience</a></li>
+                    <li><a href="#projects">Blog</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </header>
     <div id="particles-js" class="rellax" data-rellax-speed="-10">
         <img src="imgs/Circuit.png" id="frontpage-img">
         <div id="frontpage-header">
@@ -40,74 +47,6 @@
             <h3>Other info
                 <br>Can go here</h3>
         </div>
-    </div>
-    <script>
-    //Setup Rellax
-var rellax = new Rellax('.rellax', {
-  speed: -2,
-  center: false,
-  round: true,
-  vertical: true,
-  horizontal: false
-});</script>
-    <div id="fixed">
-        <ul id="nav">
-            <li>
-                <a class="navitem" href="#">
-                    <div class="navicon activenavitem"></div>
-                    <span>Item Details</span>
-                </a>
-            </li>
-            <li>
-                <a class="navitem" href="#">
-                    <div class="navicon"></div>
-                    <span>Item Details</span>
-                </a>
-            </li>
-            <li>
-                <a class="navitem" href="#">
-                    <div class="navicon"></div>
-                    <span>Item Details</span>
-                </a>
-            </li>
-            <li>
-                <a class="navitem" href="#">
-                    <div class="navicon"></div>
-                    <span>Item Details</span>
-                </a>
-            </li>
-            <li>
-                <a class="navitem" href="#">
-                    <div class="navicon"></div>
-                    <span>Item Details</span>
-                </a>
-            </li>
-            <li>
-                <a class="navitem" href="#">
-                    <div class="navicon"></div>
-                    <span>Item Details</span>
-                </a>
-            </li>
-            <li>
-                <a class="navitem" href="#">
-                    <div class="navicon"></div>
-                    <span>Item Details</span>
-                </a>
-            </li>
-            <li>
-                <a class="navitem" href="#">
-                    <div class="navicon"></div>
-                    <span>Item Details</span>
-                </a>
-            </li>
-            <div class="line-break" style="width: 30px;"></div>
-            <li class="socialmedia">
-                <a class="mdi mdi-twitter mdi-18px" href="#"></a>
-            </li>
-            <li class="socialmedia">
-                <a class="mdi mdi-thumb-up mdi-18px" href="#"></a>
-            </li>
-        </ul>
     </div>
     <div class="info-box" id="aboutme" style="background:#222;">
         <div class="info-box-header">
@@ -129,7 +68,7 @@ var rellax = new Rellax('.rellax', {
                 eos qui ratione voluptatem sequi nesciunt.</p>
         </div>
     </div>
-    <div class="info-box" style="background:#292929;">
+    <div class="info-box" id="experience" style="background:#292929;">
         <div class="info-box-header">
             <h2 class="small-header">EXPERIENCE</h2>
         </div>
