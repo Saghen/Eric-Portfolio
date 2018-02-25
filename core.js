@@ -2,14 +2,7 @@ function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-async function removeLoadingScreen() {
-  var loadingDiv = document.getElementById('loading-screen');
-  loadingDiv.classList.add('loading-fade');
-  await sleep(400);
-  loadingDiv.style.display = "none";
-}
-
-function init() {
+var init = function init() {
   //Setup WebGL
   var scene = new THREE.Scene();
 
@@ -25,9 +18,6 @@ function init() {
 
   loader.load('Drone.fbx', function (mesh) {
     scene.add(mesh);
-
-    //Remove Loading Screen
-    removeLoadingScreen();
   });
 
   var camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
@@ -89,21 +79,12 @@ function init() {
   animate();
 }
 
-window.onload = function () {
+window.onload = async function () {
   particlesJS.load('particles-js', 'js/particlesjs-config.json', function () {
     console.log('callback - particles.js config loaded');
   });
 
-  //Setup Rellax
-  var rellax = new Rellax('.rellax', {
-    speed: -2,
-    center: false,
-    round: true,
-    vertical: true,
-    horizontal: false
-  });
-
   //Setup WebGL
-  init();
+  setTimeout(init, 0);
 }
 
