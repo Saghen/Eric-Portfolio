@@ -38,6 +38,7 @@ var init = function init() {
     // controls
   
     var controls = new THREE.OrbitControls(camera, renderer.domElement);
+    controls.enableZoom = false;
     controls.autoRotate = true;
   
     window.addEventListener('resize', onWindowResize, false);
@@ -79,15 +80,6 @@ var init = function init() {
     particlesJS.load('particles-js', 'js/particlesjs-config.json', function () {
       console.log('callback - particles.js config loaded');
     });
-  
-    //Setup Rellax
-  var rellax = new Rellax('.rellax', {
-    speed: -2,
-    center: false,
-    round: true,
-    vertical: true,
-    horizontal: false
-  });
   
     //Setup WebGL
     setTimeout(init, 0);
