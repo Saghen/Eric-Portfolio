@@ -1,0 +1,20 @@
+{
+  "name": "expresslearning",
+  "version": "1.0.0",
+  "description": "Learning how to use express js",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "express",
+    "node"
+  ],
+  "author": "Liam",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "express": "^4.16.2",
+    "npm": "^5.7.1"
+  }
+}

@@ -1,0 +1,23 @@
+div + div {
+    margin-top: 20px;
+}
+
+body > form > div {
+    display: flex;
+    flex-direction: column;
+}
+
+body > form > div > * + * {
+    margin-top: 10px;
+}
+
+body {
+    padding: 20px;
+    max-width: 1200px;
+    margin: auto;
+}
+
+.button {
+    margin-top: 50px;
+    display: inline-block;
+}

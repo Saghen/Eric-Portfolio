@@ -1,0 +1,50 @@
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Blog Insert Page</title>
+    <link rel="stylesheet" type="text/css" href="../css/core.css">
+    <link rel="stylesheet" type="text/css" href="../css/bloginsert.css">
+</head>
+
+<body>
+    <form action="./insert" method="POST">
+        <div>
+            <span>Title</span>
+            <input name="title">
+        </div>
+        <div>
+            <span>Image Link</span>
+            <input name="image">
+        </div>
+        <div>
+            <span>Expected Length (Format: ## mins)</span>
+            <input name="length">
+        </div>
+        <div>
+            <span>Dateposted (Format: March 3, 2018) -- A better implementation is coming</span>
+            <input name="dateposted">
+        </div>
+        <div>
+            <span>Preview Content (What the user will see on the front page)</span>
+            <textarea name="previewcontent"></textarea>
+        </div>
+        <div>
+            <span>Content (The actual blog post in markdown format)</span>
+            <textarea name="content"></textarea>
+        </div>
+        <div>
+            <span>Tag</span>
+            <input name="tag">
+        </div>
+        <div>
+            <span>Token</span>
+            <input name="token">
+        </div>
+        <button type="submit">Submit</button>
+    </form>
+
+    
+</body>
+
+</html>

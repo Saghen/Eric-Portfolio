@@ -1,0 +1,100 @@
+body {
+    background: #fff;
+    font-family: 'Assistant', sans-serif;
+}
+
+/* Splash page */
+#splashimage {
+    position: relative;
+    height: 60%;
+    background: url(../imgs/blog-bg.jpg);
+    background-size: cover;
+}
+
+#splashimage-text {
+    position: absolute;
+    max-width: 700px;
+    max-height: 270px;
+    margin: auto;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    text-align: center;
+}
+
+#splashimage-text span {
+    font-size: 1.6em;
+    line-height: 1.6em;
+}
+
+#splashimage-text h1 {
+    font-size: 3em;
+}
+
+/* Blog Items */
+#blog-item-container {
+    margin: auto;
+    max-width: 1100px;
+}
+
+.blog-item {
+    position: relative;
+    padding: 100px 100px;
+}
+
+.blog-item .sub-item {
+    transition: color 0.4s;
+}
+
+.blog-item > h2 {
+    font-size: 1.9em;
+}
+
+.blog-item > p {
+    line-height: 2em;
+    font-size: 1.1em;
+}
+
+.blog-item > div > .button {
+    position: absolute;
+    right: 40px;
+    transform: translateY(-50%);
+}
+
+.other-buttons {
+    margin: 30px 0;
+}
+
+/* Light blog item */
+
+.blog-item:nth-child(2n+1) {
+    color: #363636;
+}
+
+.blog-item:nth-child(2n+1) .sub-item {
+    color: #999;
+}
+
+.blog-item:nth-child(2n+1) .sub-item:hover {
+    color: #111;
+}
+
+.blog-item:nth-child(2n+1) h2 a {
+    color: #000;
+}
+
+/* Dark blog item */
+.blog-item:nth-child(2n) {
+    background: url(../imgs/blog-dark-bg.jpg);
+    background-size: cover;
+    color: #eee;
+}
+
+.blog-item:nth-child(2n) .sub-item {
+    color: #ccc;
+}
+
+.blog-item:nth-child(2n) .sub-item:hover {
+    color: #eee;
+}
