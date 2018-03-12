@@ -1,5 +1,7 @@
-div + div {
-    margin-top: 20px;
+body { 
+    font-family: 'Lato', sans-serif;
+    background: #222;
+    color: #fff !important;
 }
 
 body > form > div {
@@ -7,8 +9,8 @@ body > form > div {
     flex-direction: column;
 }
 
-body > form > div > * + * {
-    margin-top: 10px;
+body > form > div + div{
+    margin-top: 20px;
 }
 
 body {
@@ -20,4 +22,48 @@ body {
 .button {
     margin-top: 50px;
     display: inline-block;
+}
+
+input, textarea {
+    background: #333;
+    border-radius: 4px;
+    border: 1px solid #444;
+    margin-top: 8px;
+    caret-color: #aaa;
+    color: #fff;
+    padding: 4px;
+}
+
+/* Styling main editor */
+.editor-toolbar a {
+    color: #fff !important;
+}
+
+.editor-toolbar {
+    border: 1px solid #444;
+}
+
+.CodeMirror {
+    background: #333;
+    color: #fff;
+    border: 1px solid #444;
+}
+
+.CodeMirror-cursor {
+    border-left: 1px solid #aaa;
+}
+
+/* Button */
+.button {
+    padding: 10px 40px;
+    color: #008c82;
+    text-decoration: none;
+    border: 1px solid #008c82;
+    border-radius: 2px;
+    transition: all 0.4s;
+}
+
+.button:hover {
+    background: #008c82;
+    color: #fff;
 }

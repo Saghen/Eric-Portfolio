@@ -15,9 +15,7 @@ app.get('/blog/post', function(req, res) {
 
 app.get('/blog/getdata', function (req, res) {
     let file = fs.readFileSync("./hidden_data/blogInfo.json", "UTF-8");
-    if(req.query.page == undefined) {
-        req.query.page = 1;
-    }
+    if(req.query.page == undefined) { req.query.page = 1; }
 
     res.set({ 'content-type': 'application/json; charset=utf-8' });
     res.send(JSON.parse(file).slice((req.query.page - 1) * 10, req.query.page * 10));
@@ -25,12 +23,8 @@ app.get('/blog/getdata', function (req, res) {
 
 app.get('/blog/getauthor', function (req, res) {
     let file = JSON.parse(fs.readFileSync("./hidden_data/authorInfo.json", "UTF-8"));
-    if(req.query.name != undefined) {
-        res.send(file[req.query.name])
-    }
-    else {
-        res.send(file);
-    }
+    if(req.query.name != undefined) { res.send(file[req.query.name]) }
+    else { res.send(file); }
 });
 
 app.get('/blog/getinfo/:entryid', function(req, res) {

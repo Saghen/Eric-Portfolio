@@ -3,12 +3,14 @@
 <head>
     <meta charset="utf-8">
     <title>Blog Insert Page</title>
-    <link rel="stylesheet" type="text/css" href="../css/core.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
+    <script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
     <link rel="stylesheet" type="text/css" href="../css/bloginsert.css">
+    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet"> 
 </head>
 
 <body>
-    <form action="./insert" method="POST">
+    <form id="submitForm" action="./insert" method="POST">
         <div>
             <span>Title</span>
             <input name="title">
@@ -22,16 +24,16 @@
             <input name="length">
         </div>
         <div>
-            <span>Dateposted (Format: March 3, 2018) -- A better implementation is coming</span>
+            <span>Dateposted (Format: March 3, 2018)</span>
             <input name="dateposted">
         </div>
         <div>
-            <span>Preview Content (What the user will see on the front page)</span>
+            <span>Description</span>
             <textarea name="previewcontent"></textarea>
         </div>
         <div>
-            <span>Content (The actual blog post in markdown format)</span>
-            <textarea name="content"></textarea>
+            <span>Post</span>
+            <textarea id="content" name="content"></textarea>
         </div>
         <div>
             <span>Tag</span>
@@ -41,10 +43,12 @@
             <span>Token</span>
             <input name="token">
         </div>
-        <button type="submit">Submit</button>
+        <a class="button" href="javascript:{}" onclick="document.getElementById('submitForm').submit();">Submit</a>
     </form>
-
-    
+    <script>
+        var simplemde = new SimpleMDE({ element: document.getElementById("content") });
+        simplemde.autosave = true;
+    </script>
 </body>
 
 </html>
