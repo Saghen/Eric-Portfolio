@@ -19,11 +19,6 @@ body {
     margin: auto;
 }
 
-.button {
-    margin-top: 50px;
-    display: inline-block;
-}
-
 input, textarea {
     background: #333;
     border-radius: 4px;
@@ -55,6 +50,7 @@ input, textarea {
 
 /* Button */
 .button {
+    display: inline-block;
     padding: 10px 40px;
     color: #008c82;
     text-decoration: none;

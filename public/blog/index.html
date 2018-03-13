@@ -55,7 +55,7 @@
     <script>
         Vue.component("blog-item", {
             props: ["post"],
-            template: '<div class="blog-item"><a class="sub-item" :href="`./post?id=${post.id}`">{{ post.author }}   •   {{ post.dateposted }}</a><h2><a :href="`./post?id=${post.id}`">{{ post.title }}</a></h2><p>{{ post.previewcontent }}</p><div class="other-buttons"><a class="sub-item" :href="`./post?id=${post.id}`">COUNTING READING...</a><a class="button" href="#">{{ post.tag }}</a></div></div>'
+            template: '<div class="blog-item"><a class="sub-item" :href="`./post?id=${post.id}`">{{ post.author }} • {{ post.dateposted }}</a><h2><a :href="`./post?id=${post.id}`">{{ post.title }}</a></h2><p>{{ post.previewcontent }}</p><div class="other-buttons"><a class="sub-item" :href="`./post?id=${post.id}`">COUNTING READING...</a><a class="button" href="#">{{ post.tag }}</a></div></div>'
         })
 
         blogApp = new Vue({

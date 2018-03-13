@@ -6,26 +6,30 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
     <script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
     <link rel="stylesheet" type="text/css" href="../css/bloginsert.css">
-    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet"> 
+    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
 </head>
 
 <body>
-    <form id="submitForm" action="./insert" method="POST">
+    <div>
+        <span>Image Link</span>
+    </div>
+    <form id="imageupload" action="./fileupload" method="POST" enctype="multipart/form-data">
+        <input type="file" name="image" style="display:block;" value="placeholder.png">
+        <input type="submit" name="Upload" value="Upload" />
+    </form>
+
+    <form id="submit-form" action="./insertPOST" method="POST">
         <div>
             <span>Title</span>
             <input name="title">
         </div>
         <div>
-            <span>Image Link</span>
-            <input name="image">
+            <span>Image</span>
+            <input name="image" value="placeholder.png">
         </div>
         <div>
             <span>Expected Length (Format: ## mins)</span>
             <input name="length">
-        </div>
-        <div>
-            <span>Dateposted (Format: March 3, 2018)</span>
-            <input name="dateposted">
         </div>
         <div>
             <span>Description</span>
@@ -43,11 +47,102 @@
             <span>Token</span>
             <input name="token">
         </div>
-        <a class="button" href="javascript:{}" onclick="document.getElementById('submitForm').submit();">Submit</a>
     </form>
+    <a class="button" style="margin-top: 40px;" href="javascript:{}" onclick="document.getElementById('submit-form').submit();">Submit</a>
     <script>
-        var simplemde = new SimpleMDE({ element: document.getElementById("content") });
-        simplemde.autosave = true;
+        var simplemde = new SimpleMDE(
+            {
+                autosave: true,
+                element: document.getElementById("content"),
+                renderingConfig: {
+                    codeSyntaxHighlighting: true
+                },
+                toolbar: [
+                    {
+                        "name": "bold",
+                        "className": "fa fa-bold",
+                        "title": "Bold",
+                        "action": SimpleMDE.toggleBold
+                    },
+                    {
+                        "name": "italic",
+                        "className": "fa fa-italic",
+                        "title": "Italic",
+                        "action": SimpleMDE.toggleItalic
+                    },
+                    {
+                        "name": "heading",
+                        "className": "fa fa-header",
+                        "title": "Heading",
+                        "action": SimpleMDE.toggleHeading1
+                    },
+                    "|",
+                    {
+                        "name": "quote",
+                        "className": "fa fa-quote-left",
+                        "title": "Quote",
+                        "action": SimpleMDE.toggleBlockquote
+                    },
+                    {
+                        "name": "unordered-list",
+                        "className": "fa fa-list-ul",
+                        "title": "Generic List",
+                        "action": SimpleMDE.toggleUnorderedList
+                    },
+                    {
+                        "name": "ordered-list",
+                        "className": "fa fa-list-ol",
+                        "title": "Numbered List",
+                        "action": SimpleMDE.toggleOrderedList
+                    },
+                    {
+                        "name": "code",
+                        "action": SimpleMDE.toggleCodeBlock,
+                        "className": "fa fa-code",
+                        "title": "Code",
+                    },
+                    "|",
+                    {
+                        "name": "link",
+                        "className": "fa fa-link",
+                        "title": "Create Link",
+                        "default": true
+                    },
+                    {
+                        "name": "image",
+                        "className": "fa fa-picture-o",
+                        "title": "Insert Image",
+                        "default": true
+                    },
+                    "|",
+                    {
+                        "name": "preview",
+                        "className": "fa fa-eye no-disable",
+                        "title": "Toggle Preview",
+                        "default": true
+                    },
+                    {
+                        "name": "side-by-side",
+                        "className": "fa fa-columns no-disable no-mobile",
+                        "title": "Toggle Side by Side",
+                        "default": true
+                    },
+                    {
+                        "name": "fullscreen",
+                        "className": "fa fa-arrows-alt no-disable no-mobile",
+                        "title": "Toggle Fullscreen",
+                        "default": true
+                    },
+                    "|",
+                    {
+                        "name": "guide",
+                        "action": "https://simplemde.com/markdown-guide",
+                        "className": "fa fa-question-circle",
+                        "title": "Markdown Guide",
+                        "default": true
+                    }
+                ]
+            });
     </script>
 </body>
 
