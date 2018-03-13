@@ -11,6 +11,7 @@
 
     <!-- My Files -->
     <link rel="stylesheet" type="text/css" href="../css/core.css">
+    <link rel="stylesheet" type="text/css" href="../css/blog.css">
     <link rel="stylesheet" type="text/css" href="../css/blogentry.css">
     <script src="../js/vue.min.js"></script>
     <script src="../js/core.js"></script>
@@ -54,11 +55,12 @@
             <img id="authorimg" :src="profileImg">
             <div>
                 <span>{{ author }}</span>
-                <span style="color:#aaa; margin-top: 3px;">{{ date }} • {{ length }}</span>
+                <span style="color:#555; margin-top: 3px;">{{ date }} • {{ length }}</span>
             </div>
         </div>
         <img id="splashimage" :src="'../imgs/' + splashImg">
         <div id="content">
+            <h1>{{ title }}</h1>
             <blog-content></blog-content>
         </div>
         <script>
@@ -83,8 +85,10 @@
                 Vue.component('blog-content', {
                     template: '<div>' + template + '</div>',
                     mounted: function () {
-                        var code = document.getElementById("content")
-                        hljs.highlightBlock(code)
+                        var code = document.getElementsByTagName("code");
+                        for (let x in code) {
+                            hljs.highlightBlock(code[x]);
+                        }
                     }
                 });
             });
@@ -96,17 +100,18 @@
                     date: "",
                     length: "",
                     profileImg: "",
-                    splashImg: ""
+                    splashImg: "",
+                    title: ""
                 },
                 created() {
                     fetch(`./getinfo/${getParameterByName("id")}`).then(res => res.json()).then(json => {
-                        let author = json.author;
-
                         this.date = json.dateposted;
                         this.length = json.length;
                         this.splashImg = json.image;
 
-                        fetch(`./getauthor?name=${author}`).then(res => res.json()).then(authorInfo => {
+                        this.title = json.title;
+
+                        fetch(`./getauthor?name=${json.author}`).then(res => res.json()).then(authorInfo => {
                             this.author = authorInfo.authorname;
                             this.profileImg = authorInfo.authorimg;
                         });

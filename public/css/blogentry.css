@@ -2,10 +2,19 @@ body {
     font-family: 'Assistant', sans-serif;
     letter-spacing: 0.09em;
     line-height: 1.5em;
+    color: #000;
 }
 
 #Header {
-    background: #292929;
+    background: #008c82;
+}
+
+#nav > li > a {
+    color: #fff;
+}
+
+.scrolledHeader > #nav > li > a {
+    color: #bbb;
 }
 
 #wrapper {
@@ -43,10 +52,4 @@ body {
     padding: 30px;
     max-width: 750px;
     margin:auto;
-}
-
-/* Code Styling */
-.hljs {
-    background: transparent;
-    color: #ccc;
 }
