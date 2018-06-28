@@ -62,7 +62,7 @@
             el: '#blog-item-container',
             data: { blogposts: [] },
             created() {
-                fetch('./getdata?page=1').then(res => res.json()).then(json => { this.blogposts = json; });
+                fetch('./getdata?page=1').then(res => res.json()).then(json => { this.blogposts = JSON.parse(json); });
             }
         })
     </script>

@@ -1,7 +1,12 @@
+@font-face {
+    font-family: "Simplifica";
+    src: url("../fonts/simplifica.ttf");
+}
+
 h1 {
     font-family: 'Simplifica', Verdana, sans-serif;
     font-size: 4em;
-    font-weight: 100;
+    font-weight: lighter;
     letter-spacing: 0.2em;
     margin: 0;
 }
@@ -15,9 +20,7 @@ h2 {
 }
 
 p {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    font-size: 1em;
-    font-weight: 100;
+    font-family: 'Source Sans Pro', Arial, Helvetica, sans-serif;
     letter-spacing: 0.1em;
     line-height: 1.5em;
     margin: 0;
@@ -50,18 +53,7 @@ p {
     left: 150px;
     opacity: 0;
     animation: animate-opacity 0.5s linear 0.2s forwards;
-}
-
-#frontpage-extra {
-    font-family: 'Simplifica', Verdana, sans-serif;
-    font-size: 1.5em;
-    font-weight: 100;
-    letter-spacing: 0.2em;
-    bottom: 10%;
-    position: absolute;
-    left: 150px;
-    opacity: 0;
-    animation: animate-opacity 0.5s linear 0.2s forwards;
+    transform: scaleX(1.1) translateX(5%);
 }
 
 /* Info Box */
@@ -102,6 +94,7 @@ p {
     font-weight: 100;
     letter-spacing: 0.2em;
     margin: 0;
+    padding: 10px 0 0 0;
     display: inline-block;
     margin-bottom: 40px;
     font-weight: bold;
@@ -125,9 +118,9 @@ p {
 }
 
 @keyframes typing-effect {
-    0% {border-right: 1px rgba(255,255,255,0.0) solid;}
-    49% {border-right: 1px rgba(255,255,255,0.0) solid;}
-    50% {border-right: 1px rgba(255,255,255,0.3) solid}
-    99% {border-right: 1px rgba(255,255,255,0.3) solid}
-    100% {border-right: 1px rgba(255,255,255,0.0) solid;}
+    0% {border-right: 15px rgba(255,255,255,0.0) solid;}
+    49% {border-right: 15px rgba(255,255,255,0.0) solid;}
+    50% {border-right: 15px rgba(255,255,255,0.3) solid}
+    99% {border-right: 15px rgba(255,255,255,0.3) solid}
+    100% {border-right: 15px rgba(255,255,255,0.0) solid;}
 }

@@ -6,7 +6,7 @@ body {
 }
 
 #Header {
-    background: #008c82;
+    background-color: rgba(0,0,0,0.8) !important;
 }
 
 #nav > li > a {

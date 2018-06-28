@@ -1,9 +1,18 @@
-const express = require('express');
-const app = express();
-const path = require('path');
-const bodyParser = require('body-parser');
-const formidable = require('express-formidable');
-var fs = require("fs"), json;
+'use strict'
+
+const express = require('express')
+    , app = express()
+    , spdy = require('spdy')
+    , path = require('path')
+    , formidable = require('express-formidable')
+    , fs = require("fs");
+
+app.use(function (req, res, next) {
+    if (!req.secure) {
+        return res.redirect(['https://', req.get('Host'), req.url].join(''));
+    }
+    next();
+});
 
 app.use(express.static("public"));
 
@@ -14,17 +23,19 @@ app.get('/blog/post', function (req, res) {
 });
 
 app.get('/blog/getdata', function (req, res) {
-    let file = fs.readFileSync("./hidden_data/blogInfo.json", "UTF-8");
-    if (req.query.page == undefined) { req.query.page = 1; }
-
-    res.set({ 'content-type': 'application/json; charset=utf-8' });
-    res.send(JSON.parse(file).slice((req.query.page - 1) * 10, req.query.page * 10));
+    fs.readFile(__dirname + "/hidden_data/blogInfo.json", (err, buffer) => {
+        let data = JSON.parse(buffer.toString());
+        res.json(JSON.stringify(data.slice((req.query.page - 1) * 10, req.query.page * 10 - 1)));
+    });
 });
 
 app.get('/blog/getauthor', function (req, res) {
-    let file = JSON.parse(fs.readFileSync("./hidden_data/authorInfo.json", "UTF-8"));
-    if (req.query.name != undefined) { res.send(file[req.query.name]) }
-    else { res.send(file); }
+    let file = JSON.parse(fs.readFileSync("./hidden_data/authorInfo.json"));
+    if (req.query.name !== undefined) { 
+            res.send(file[req.query.name])
+            return; 
+        }
+    res.send(file);
 });
 
 app.get('/blog/getinfo/:entryid', function (req, res) {
@@ -40,13 +51,21 @@ app.get('/blog/getinfo/:entryid', function (req, res) {
 });
 
 app.get('/blog/insert', function (req, res) {
-    let file = JSON.parse(fs.readFileSync("./hidden_data/tokens.json", "UTF-8"));
-    if (file.find((element) => { if (element == req.query.token) { return true; } })) {
-        res.sendFile(__dirname + "/hidden_data/bloginsert.html");
-    }
-    else {
-        res.send("Token not found");
-    }
+    fs.readFile("./hidden_data/tokens.json", (err, buffer) => {
+        let file = JSON.parse(buffer.toString());
+
+        if(!req.query.token) {
+            res.send('Please provide a token in the query string. Format: https://example.com/blog/insert?token=ABCDEFGHIJKLMNOPQRSTUV-_+=012345');
+            return;
+        }
+
+        if (file.find((element) => { if (element == req.query.token) { return true; } })) {
+            res.sendFile(__dirname + "/hidden_data/bloginsert.html");
+            return;
+        }
+        res.send('Token not found. Please check your spelling and/or insert a new token into the respective json file.');
+    });
+    
 });
 
 app.post('/blog/insertPOST', function (req, res) {
@@ -89,4 +108,20 @@ app.post('/blog/fileupload', function (req, res) {
     res.send("Success!")
 })
 
-app.listen(8080, () => console.log('Example app listening on port 8080!'))
+
+// Start the server
+const options = {
+    cert: fs.readFileSync(__dirname + '/sslcert/fullchain.pem'),
+    key: fs.readFileSync(__dirname + '/sslcert/privkey.pem'),
+};
+
+app.listen(80);
+spdy.createServer(options, app)
+    .listen(443, (error) => {
+        if (error) {
+            console.error(error)
+            return process.exit(1)
+        } else {
+            console.log('Listening on port: ' + 443 + '.')
+        }
+    });
