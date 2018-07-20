@@ -216,7 +216,7 @@ body {
 
 #splashimage {
     position: relative;
-    height: 60%;
+    height: 600px;
     background: url(../imgs/blog-bg.jpg);
     background-size: cover;
     color: #fff;

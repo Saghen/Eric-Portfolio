@@ -41,7 +41,7 @@ module.exports = (function () {
             accounts[id].token = token;
             res.cookie('token', token, { secure: true, maxAge: 5184000000, path: '/' }); //Expires after 60 days
             res.cookie('username', req.query.username, { secure: true, path: '/' });
-            res.redirect('https://' + req.hostname + '/blog');
+            res.redirect('https://' + req.hostname + '/blog/insert');
             fs.writeFile(path.resolve(__mainDir, 'database/accounts.json'), JSON.stringify(accounts), (err) => { if (err) console.log(err); });
         })
     });

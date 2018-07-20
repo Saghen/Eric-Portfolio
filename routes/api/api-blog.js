@@ -19,7 +19,7 @@ module.exports = (function () {
         return account.token == req.cookies.token;
     }
 
-    router.post('/insert', function (req, res) {
+    router.post('/insertPost', function (req, res) {
         let blogData = require(path.resolve(__mainDir, 'database/blog-info.json'));
         let data = req.fields;
         let months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
@@ -34,13 +34,16 @@ module.exports = (function () {
         })
     });
 
-    router.post('/upload', function (req, res) {
-        if (!req.files.image) { return res.status(400).send('No file was selected'); }
+    router.post('/insertFile', function (req, res) {
+        if (!req.files.file) { return res.status(400).json({message: 'No file was sent.'}); }
+        if (!isLoggedIn(req)) { return res.status(403).json({message: `Not logged in. Please go <a href="https://${req.hostname}/blog/login">here</a> to login.`})}
 
-        fs.copyFile(req.files.image.path, path.resolve(__mainDir, 'public/uploads/', req.files.image.name), (err) => {
-            if (err) return res.send('An error occured. ' + JSON.stringify(err));
-            fs.unlink(req.files.image.path, err => console.log(err));
-            res.send('File can be found at https://saghen.com/uploads/' + req.files.image.name);
+        let file = req.files.file;
+
+        fs.copyFile(file.path, path.resolve(__mainDir, 'public/uploads/', file.name), (err) => {
+            if (err) return res.json({ message: 'An error occured. ' + JSON.stringify(err) });
+            fs.unlink(file.path, err => {if(err) console.log(err) });
+            res.status(200).json({ message: `File can be found at <a href="https://${req.hostname}/uploads/${file.name}">https://${req.hostname}/uploads/${file.name}` });
         });
     })
 
