@@ -4,21 +4,30 @@
   "description": "Learning how to use express js",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack"
   },
   "keywords": [
     "express",
     "node"
   ],
+  "nodemonConfig": {
+    "ignore": [
+      "*.json",
+      "/public"
+    ],
+    "delay": "2500"
+  },
   "author": "Liam",
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "^3.0.0",
     "body-parser": "^1.18.3",
-    "connect-busboy": "0.0.2",
+    "compression": "^1.7.3",
+    "cookie-parser": "^1.4.3",
     "express": "^4.16.3",
     "express-formidable": "^1.0.0",
-    "formidable": "^1.2.1",
-    "npm": "^5.10.0",
-    "spdy": "^3.4.7"
+    "express-rate-limit": "^2.11.0",
+    "greenlock-express": "^2.3.2"
   }
 }

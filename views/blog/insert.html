@@ -1,0 +1,154 @@
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Sea of Electrons Insert Blog Post</title>
+    <link href="//cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="../css/blog-insert.css">
+    <link rel="stylesheet" type="text/css" href="../css/dracula.css">
+    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+    <script src="//cdn.quilljs.com/1.3.6/quill.min.js"></script>
+</head>
+
+<body>
+    <div>
+        <span>Image Link</span>
+    </div>
+    <form id="imageupload" action="../../api/blog/upload" method="POST" enctype="multipart/form-data">
+        <input type="file" name="image" style="display:block;" value="placeholder.png">
+        <a class="button" onclick="if(confirm('This will reload your page. Press OK if you have no work that is unsaved.')) document.querySelector('#imageupload').submit()">Submit</a>
+    </form>
+
+    <form id="form" action="../../api/blog/insert" method="POST">
+        <div>
+            <span>Title</span>
+            <input name="title" placeholder="Your Title...">
+        </div>
+        <div>
+            <span>Author</span>
+            <input name="author" placeholder="Ex. Eric Dyer">
+        </div>
+        <div>
+            <span>Image</span>
+            <input name="image" placeholder="Use a full link or relative link to https://saghen.com/blog/post">
+        </div>
+        <div>
+            <span>Description</span>
+            <textarea name="previewcontent" placeholder="Short description to be shown on the blog home page"></textarea>
+        </div>
+        <div>
+            <span>Post</span>
+            <div id="toolbar">
+                <span class="ql-formats">
+                    <select class="ql-font"></select>
+                    <select class="ql-size"></select>
+                </span>
+                <span class="ql-formats">
+                    <button class="ql-bold"></button>
+                    <button class="ql-italic"></button>
+                    <button class="ql-underline"></button>
+                    <button class="ql-strike"></button>
+                </span>
+                <span class="ql-formats">
+                    <select class="ql-color"></select>
+                    <select class="ql-background"></select>
+                </span>
+                <span class="ql-formats">
+                    <button class="ql-script" value="sub"></button>
+                    <button class="ql-script" value="super"></button>
+                </span>
+                <span class="ql-formats">
+                    <button class="ql-header" value="1"></button>
+                    <button class="ql-header" value="2"></button>
+                    <button class="ql-blockquote"></button>
+                    <button class="ql-code-block"></button>
+                </span>
+                <span class="ql-formats">
+                    <button class="ql-list" value="ordered"></button>
+                    <button class="ql-list" value="bullet"></button>
+                    <button class="ql-indent" value="-1"></button>
+                    <button class="ql-indent" value="+1"></button>
+                </span>
+                <span class="ql-formats">
+                    <button class="ql-direction" value="rtl"></button>
+                    <select class="ql-align"></select>
+                </span>
+                <span class="ql-formats">
+                    <button class="ql-link"></button>
+                    <button class="ql-image"></button>
+                    <button class="ql-video"></button>
+                    <button class="ql-formula"></button>
+                </span>
+                <span class="ql-formats">
+                    <button class="ql-clean"></button>
+                </span>
+            </div>
+            <div id="editor" name="content">
+            </div>
+        </div>
+        <input id="content" name="content" style="display: none;">
+        <div>
+            <span>Tag</span>
+            <input name="tag" placeholder="Ex. Programming <-- Users can view items by tag">
+        </div>
+    </form>
+    <a id="submit" class="button" style="margin-top: 40px;" href="#">Submit</a>
+    <script>
+        let options = {
+            modules: {
+                syntax: true,
+                toolbar: {
+                    container: '#toolbar',
+                    matchVisual: false,
+                    handlers: {
+                        image: function () {
+                            var range = this.quill.getSelection();
+                            var value = prompt('What is the image URL');
+                            this.quill.insertEmbed(range.index, 'image', value, Quill.sources.USER);
+                        }
+                    }
+                },
+
+            },
+            placeholder: 'Compose an epic...',
+            theme: 'snow'
+        };
+        let editor = new Quill('#editor', options);
+
+        function toTitleCase(str) {
+            return str.replace(/\w\S*/g, function (txt) {
+                return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+            });
+        }
+
+        document.querySelector('#submit').addEventListener('click', (e) => {
+            e.preventDefault();
+
+            let data = {}
+            let form = document.getElementById('form');
+
+            data.title = form.title.value;
+            data.image = form.image.value;
+            data.author = toTitleCase(form.author.value);
+            data.length = Math.ceil(editor.getLength() / 4.5 / 150) + ' mins';
+            data.previewcontent = form.previewcontent.value;
+            data.content = JSON.stringify(editor.getContents());
+            data.tag = form.tag.value;
+
+            fetch('https://saghen.com/api/blog/insert', {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            }).then(res => {
+                if (res.ok == true) return alert('Successfully uploaded blog post.');
+                alert('An error occured. Check the server logs.')
+            })
+        });
+    </script>
+</body>
+
+</html>

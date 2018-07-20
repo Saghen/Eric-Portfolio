@@ -1,0 +1,90 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Sea of Electrons Login</title>
+    <link rel="stylesheet" href="../css/core.css">
+    <style>
+        body {
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #2B2C36;
+        }
+
+        #login-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 40px 60px;
+            background: #fff;
+            border-radius: 5px;
+            max-width: 500px;
+            width: 100%;
+        }
+
+        input+input {
+            margin-bottom: 30px;
+        }
+
+        .button {
+            display: block;
+            background: #2a967b;
+            color: #fff;
+            padding: 15px 0;
+            width: 100%;
+            text-align: center;
+        }
+
+        #login-text {
+            margin-bottom: 30px;
+            font-size: 2em;
+        }
+
+        #login-incorrect {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="login-container">
+        <span id="login-text">SIGN IN</span>
+        <span id="login-incorrect" style="color:#B33A3A; opacity: 0; transition: 0.2s opacity;">Incorrect username or password</span>
+        <input id="username" type="text" placeholder="Username">
+        <input id="password" type="password" placeholder="Password">
+        <a class="button" id="login-submit" href="#">Login</a>
+    </div>
+
+    <script>
+        function submitLogin() {
+            fetch(`https://${window.location.hostname}/api/auth/login?username=${document.querySelector('#username').value}&password=${document.querySelector('#password').value}`, { credentials: 'same-origin' })
+                .then(res => {
+                    console.log(res);
+                    if (res.ok == false) {
+                        return document.querySelector('#login-incorrect').style.opacity = 1;
+                    }
+                    window.location.href = res.url;
+                })
+        }
+
+        document.querySelector('#login-submit').addEventListener('click', (e) => {
+            e.preventDefault();
+
+            submitLogin();
+        })
+
+        for (let elem of document.getElementsByTagName('input')) {
+            elem.addEventListener('keypress', (e) => {
+                if (e.key.toLowerCase() == 'enter' || e.keyCode == 13) submitLogin();
+            })
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,84 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Sea of Electrons Blog</title>
+    <link href="https://fonts.googleapis.com/css?family=Assistant" rel="stylesheet">
+    <link rel="stylesheet" href="../css/core.css">
+    <link rel="stylesheet" href="../css/blog.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.1/css/all.css">
+    <meta charset="utf-8">
+    <meta name="description" content="Website for Eric for his blog and things.">
+    <meta name="keywords" content="PCBs, Circuits, Technology, Eric Dyer, Coding, Programming">
+    <meta name="author" content="Liam Dyer">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://saghen.github.io/Eric-Portfolio/imgs/og_image.png">
+    <meta property="og:title" content="Sea of Technology">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:description" content="Website for Eric for his blog and things.">
+    <link rel="canonical" href="https://saghen.github.io/Eric-Portfolio/">
+    <meta property="og:url" content="https://saghen.github.io/Eric-Portfolio/">
+    <meta property="og:site_name" content="Sea of Technology">
+</head>
+<body>
+    <header>
+        <div>
+            <a href="#" id="logo">
+                <svg viewBox="0 0 105 95">
+                    <g>
+                        <path style="fill:#fff;" d="M 1.2027119,18.371517 H 66.149217 l -8.55263,14.699824 H 26.459683 L 60.402917,91.469733 H 43.030394 Z"
+                        />
+                        <path style="fill:#fff;" d="M 46.237625,34.541327 H 28.865105 L 61.471997,90.400663 103.56695,17.436072 94.747052,3.00352 61.471997,60.867371 Z"
+                        />
+                        <path style="fill:#fff;" d="M 9.7553378,1.800805 1.3363469,16.7679 68.955537,17.035169 53.186627,43.494851 61.605617,58.595571 93.945242,2.068077 Z"
+                        />
+                    </g>
+                </svg>
+                <span style="white-space: nowrap;">Sea of Electrons</span>
+            </a>
+            <div>
+                <a onclick="document.querySelector('#search').focus()" style="cursor: pointer;">
+                    <i class="fas fa-search"></i>
+                    <span>Search</span>
+                </a>
+                <input id="search" type="text">
+            </div>
+        </div>
+    </header>
+    <div id="splashimage">
+        <div id="splashimage-text">
+            <h1>Sea of Electrons</h1>
+            <span>Some pitch about your blog. Just gonna fill in some text here so you can see what it looks like when there is
+                some text to fill in the space.</span>
+        </div>
+    </div>
+    <div id="blog-item-container">
+        <blog-item v-for="item in blogposts" v-bind:post="item"></blog-item>
+    </div>
+    <script src="../js/vue.min.js"></script>
+    <script>
+        window.onscroll = function () {
+            if (window.pageYOffset > 10) {
+                document.querySelector('header').classList.add("scrolled-header");
+            } else {
+                document.querySelector('header').classList.remove("scrolled-header");
+            }
+        };
+
+
+        Vue.component("blog-item", {
+            props: ["post"],
+            template: '<div class="blog-item"><a class="sub-item" :href="`./post?id=${post.id}`">{{ post.author }} • {{ post.dateposted }}</a><h2><a :href="`./post?id=${post.id}`">{{ post.title }}</a></h2><p>{{ post.previewcontent }}</p><div class="other-buttons"><a class="sub-item" :href="`./post?id=${post.id}`">COUNTING READING...</a></div></div>'
+        })
+
+        blogApp = new Vue({
+            el: '#blog-item-container',
+            data: { blogposts: [] },
+            created() {
+                fetch('https://' + window.location.hostname + '/api/blog/data').then(res => res.json()).then(json => { this.blogposts = json; });
+            }
+        })
+    </script>
+</body>
+</html>
