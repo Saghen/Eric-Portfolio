@@ -21,12 +21,12 @@ module.exports = (function () {
 
     router.post('/insertPost', function (req, res) {
         let blogData = require(path.resolve(__mainDir, 'database/blog-info.json'));
-        let data = req.fields;
+        let data = JSON.parse(JSON.stringify(req.fields));
         let months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
         data.dateposted = `${months[new Date(Date.now()).getMonth()]} ${new Date(Date.now()).getDate()}, ${new Date(Date.now()).getFullYear()}`
         data.id = Math.max.apply(Math, blogData.map(function (o) { return o.id; })) + 1;
         blogData.unshift(data);
-        fs.writeFile(path.resolve(__mainDir, 'database/blog-info.json'), JSON.stringify(blogData), (err) => {
+        return fs.writeFile(path.resolve(__mainDir, 'database/blog-info.json'), JSON.stringify(blogData), (err) => {
             if (!err) return res.json({ success: true });
             console.error('Error occured while writing out new blog post data while inserting data. Check routes/api/api-blog.js');
             console.error(err);

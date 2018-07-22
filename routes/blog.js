@@ -9,11 +9,11 @@ module.exports = (function () {
     let __mainDir = path.dirname(require.main.filename);
 
     router.get('/', function (req, res) {
-        res.sendFile(path.resolve(__mainDir, 'views/blog/home.html'));
+        return res.sendFile(path.resolve(__mainDir, 'views/blog/home.html'));
     });
 
     router.get('/post', function (req, res) {
-        res.sendFile(path.resolve(__mainDir, 'views/blog/post.html'));
+        return res.sendFile(path.resolve(__mainDir, 'views/blog/post.html'));
     });
 
     router.get('/insert', function (req, res) {
@@ -25,7 +25,7 @@ module.exports = (function () {
             return res.status(403).json({ reason: "User's credentials have expired."});
         }
 
-        res.sendFile(path.resolve(__mainDir, 'views/blog/insert.html'));
+        return res.sendFile(path.resolve(__mainDir, 'views/blog/insert.html'));
     });
 
     router.get('/login', function(req, res) {
@@ -37,7 +37,7 @@ module.exports = (function () {
             return res.sendFile(path.resolve(__mainDir, 'views/blog/login.html'));
         }
 
-        res.send('Already logged in.');
+        return res.send('Already logged in.');
     })
 
     return router;
