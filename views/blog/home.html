@@ -1,8 +1,10 @@
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="theme-color" content="#2a967b">
     <title>Sea of Electrons Blog</title>
     <link href="https://fonts.googleapis.com/css?family=Assistant" rel="stylesheet">
     <link rel="stylesheet" href="../css/core.css">
@@ -13,15 +15,16 @@
     <meta name="keywords" content="PCBs, Circuits, Technology, Eric Dyer, Coding, Programming">
     <meta name="author" content="Liam Dyer">
     <meta property="og:type" content="website">
-    <meta property="og:image" content="https://saghen.github.io/Eric-Portfolio/imgs/og_image.png">
-    <meta property="og:title" content="Sea of Technology">
+    <meta property="og:image" content="https://saghen.com/og-image.png">
+    <meta property="og:title" content="Sea of Electrons">
     <meta property="og:locale" content="en_US">
     <meta property="og:description" content="Website for Eric for his blog and things.">
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
-    <link rel="canonical" href="https://saghen.github.io/Eric-Portfolio/">
-    <meta property="og:url" content="https://saghen.github.io/Eric-Portfolio/">
-    <meta property="og:site_name" content="Sea of Technology">
+    <link rel="canonical" href="https://saghen.com/blog/">
+    <meta property="og:url" content="https://saghen.com/blog/">
+    <meta property="og:site_name" content="Sea of Electrons">
 </head>
+
 <body>
     <header>
         <div>
@@ -47,8 +50,8 @@
             </div>
         </div>
     </header>
-    <div id="splashimage">
-        <div id="splashimage-text">
+    <div id="hero">
+        <div id="hero-text">
             <h1>Sea of Electrons</h1>
             <span>Some pitch about your blog. Just gonna fill in some text here so you can see what it looks like when there is
                 some text to fill in the space.</span>
@@ -56,9 +59,28 @@
     </div>
     <div id="blog-item-container">
         <blog-item v-for="item in blogposts" v-bind:post="item"></blog-item>
+        <div class="pagination" v-show="maxPages > 1">
+            <button v-on:click="if(page > 1) page -= 1">
+                <i class="fas fa-arrow-left"></i>
+            </button>
+            <span>{{ page }}</span>
+            <button v-on:click="if(page < maxPages) page += 1">
+                <i class="fas fa-arrow-right"></i>
+            </button>
+        </div>
     </div>
     <script src="../js/vue.min.js"></script>
     <script>
+        function getParameterByName(name, url) {
+            if (!url) url = window.location.href;
+            name = name.replace(/[\[\]]/g, "\\$&");
+            var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+                results = regex.exec(url);
+            if (!results) return null;
+            if (!results[2]) return '';
+            return decodeURIComponent(results[2].replace(/\+/g, " "));
+        }
+
         window.onscroll = function () {
             if (window.pageYOffset > 10) {
                 document.querySelector('header').classList.add("scrolled-header");
@@ -73,13 +95,25 @@
             template: '<div class="blog-item"><a class="sub-item" :href="`./post?id=${post.id}`">{{ post.author }} • {{ post.dateposted }}</a><h2><a :href="`./post?id=${post.id}`">{{ post.title }}</a></h2><p>{{ post.previewcontent }}</p><div class="other-buttons"><a class="sub-item" :href="`./post?id=${post.id}`">COUNTING READING...</a></div></div>'
         })
 
+        let blogData = []
+
         blogApp = new Vue({
             el: '#blog-item-container',
-            data: { blogposts: [] },
+            data: { blogposts: [], page: 1, maxPages: 1 },
             created() {
-                fetch('https://' + window.location.hostname + '/api/blog/data').then(res => res.json()).then(json => { this.blogposts = json; });
+                fetch(`https://${window.location.hostname}/api/blog/data`).then(res => res.json()).then(json => { 
+                    blogData = json;
+                    this.blogposts = json.slice(0, 9);
+                    this.maxPages = Math.ceil(json.length / 10);
+                });
+            },
+            methods: {
+                updatePage() {
+                    this.blogposts = blogData.slice(10 * (page - 1), 10 * (page - 1) + 9);
+                }
             }
         })
     </script>
 </body>
+
 </html>

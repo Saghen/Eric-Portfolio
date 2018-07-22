@@ -89,8 +89,8 @@
             </div>
         </div>
         <div>
-            <span>Tag</span>
-            <input name="tag" placeholder="Ex. Programming <-- At the top of the post">
+            <span>Tppic</span>
+            <input name="topic" placeholder="Ex. Programming <-- At the top of the post">
         </div>
         <a id="submit-post" class="button" href="#">Submit</a>
     </form>
@@ -131,10 +131,11 @@
             data.title = form.title.value;
             data.image = form.image.value;
             data.author = toTitleCase(form.author.value);
-            data.length = Math.ceil(editor.getLength() / 4.5 / 150) + ' mins';
+            data.length = Math.ceil(editor.getLength() / 4.5 / 450) + ' mins';
             data.previewcontent = form.previewcontent.value;
             data.content = JSON.stringify(editor.getContents());
-            data.tag = form.tag.value;
+            data.topic = form.topic.value;
+            data.comments = [];
 
             fetch('https://saghen.com/api/blog/insertPost', {
                 method: 'POST',
@@ -142,6 +143,7 @@
                     'Accept': 'application/json',
                     'Content-Type': 'application/json'
                 },
+                credentials: 'same-origin',
                 body: JSON.stringify(data)
             }).then(res => {
                 if (res.ok == true) return alert('Successfully uploaded blog post.');

@@ -31,7 +31,7 @@ var apiLimiter = new RateLimit({
     delayMs: 0
 });
 
-app.use('/api/blog/addComment', apiLimiter); //Limit the speed of adding comments
+//app.use('/api/blog/addComment', apiLimiter); //Limit the speed of adding comments
 
 app.post('/blog/fileupload', function (req, res) {
     let oldPath = req.files.image.path;
@@ -54,4 +54,4 @@ greenlock.create({
     , app: app
     , communityMember: false
     , telemetry: false
-}).listen(80, 443);
+}).listen(8080, 8081);

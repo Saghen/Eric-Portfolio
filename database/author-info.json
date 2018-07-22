@@ -2,16 +2,10 @@
     "Eric Dyer": {
         "authorName": "Eric Dyer",
         "authorImg": "..\\imgs\\profileImg.jpg",
-        "authorRole": "Biomedical and Electrical Engineer",
-        "postIDs": [
-            "0", "1"
-        ]
+        "authorRole": "Biomedical and Electrical Engineer"
     },
     "Liam Dyer": {
         "authorName": "Liam Dyer",
-        "authorImg": "..\\imgs\\profileImg.png",
-        "postIDs": [
-            "0", "1"
-        ]
+        "authorImg": "..\\imgs\\profileImg.png"
     }
 }

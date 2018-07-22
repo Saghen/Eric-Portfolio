@@ -24,32 +24,38 @@ module.exports = (function () {
         let data = req.fields;
         let months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
         data.dateposted = `${months[new Date(Date.now()).getMonth()]} ${new Date(Date.now()).getDate()}, ${new Date(Date.now()).getFullYear()}`
-        data.id = blogData.length;
+        data.id = Math.max.apply(Math, blogData.map(function (o) { return o.id; })) + 1;
         blogData.unshift(data);
         fs.writeFile(path.resolve(__mainDir, 'database/blog-info.json'), JSON.stringify(blogData), (err) => {
-            if(!err) return res.json({success: true});
+            if (!err) return res.json({ success: true });
             console.error('Error occured while writing out new blog post data while inserting data. Check routes/api/api-blog.js');
             console.error(err);
-            return res.status(500).json({success: false});
+            return res.status(500).json({ success: false });
         })
     });
 
     router.post('/insertFile', function (req, res) {
-        if (!req.files.file) { return res.status(400).json({message: 'No file was sent.'}); }
-        if (!isLoggedIn(req)) { return res.status(403).json({message: `Not logged in. Please go <a href="https://${req.hostname}/blog/login">here</a> to login.`})}
+        if (!req.files.file) { return res.status(400).json({ message: 'No file was sent.' }); }
+        if (!isLoggedIn(req)) { return res.status(403).json({ message: `Not logged in. Please go <a href="https://${req.hostname}/blog/login">here</a> to login.` }) }
 
         let file = req.files.file;
 
         fs.copyFile(file.path, path.resolve(__mainDir, 'public/uploads/', file.name), (err) => {
             if (err) return res.json({ message: 'An error occured. ' + JSON.stringify(err) });
-            fs.unlink(file.path, err => {if(err) console.log(err) });
+            fs.unlink(file.path, err => { if (err) console.log(err) });
             res.status(200).json({ message: `File can be found at <a href="https://${req.hostname}/uploads/${file.name}">https://${req.hostname}/uploads/${file.name}` });
         });
     })
 
     router.get('/data', function (req, res) {
-        if (req.query.id) return res.json(require(path.resolve(__mainDir, 'database/blog-info.json'))[req.query.id])
-        res.sendFile(path.resolve(__mainDir, 'database/blog-info.json'));
+        if (req.query.id) {
+            return res.json(require(path.resolve(__mainDir, 'database/blog-info.json')).find((elem) => { return elem.id == req.query.id }))
+        }
+        let data = JSON.parse(JSON.stringify(require(path.resolve(__mainDir, 'database/blog-info.json'))));
+        for (let post of data) {
+            delete post['content'];
+        }
+        return res.json(data);
     })
 
     router.get('/authorInfo', (req, res) => {
@@ -65,7 +71,7 @@ module.exports = (function () {
         let months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
         let currentDate = `${months[new Date(Date.now()).getMonth()]} ${new Date(Date.now()).getDate()}, ${new Date(Date.now()).getFullYear()}`
 
-        blogData[req.query.id].comments.push({ author: req.fields.author, content: req.fields.content, date: currentDate });
+        blogData.find((elem) => { return elem.id == req.query.id }).comments.push({ author: req.fields.author, content: req.fields.content, date: currentDate });
 
         fs.writeFile(path.resolve(__mainDir, 'database/blog-info.json'), JSON.stringify(blogData), (err) => {
             if (!err) return res.json({ success: true });
@@ -81,7 +87,7 @@ module.exports = (function () {
 
         let blogData = require(path.resolve(__mainDir, 'database/blog-info.json'));
 
-        blogData[req.query.id].comments.splice(req.query.commentId, 1);
+        blogData.find((elem) => { return elem.id == req.query.id }).comments.splice(req.query.commentId, 1);
 
         fs.writeFile(path.resolve(__mainDir, 'database/blog-info.json'), JSON.stringify(blogData), (err) => {
             if (!err) return res.json({ success: true });

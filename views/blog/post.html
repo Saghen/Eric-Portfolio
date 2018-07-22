@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="theme-color" content="#2a967b">
     <title>Sea of Electrons Blog</title>
 
     <link href="https://fonts.googleapis.com/css?family=Roboto+Slab" rel="stylesheet">
@@ -25,14 +26,14 @@
     <meta name="keywords" content="PCBs, Circuits, Technology, Eric Dyer, Coding, Programming">
     <meta name="author" content="Liam Dyer">
     <meta property="og:type" content="website">
-    <meta property="og:image" content="https://saghen.github.io/Eric-Portfolio/imgs/og_image.png">
-    <meta property="og:title" content="Sea of Technology">
+    <meta property="og:image" content="https://saghen.com/og-image.png">
+    <meta property="og:title" content="Sea of Electrons">
     <meta property="og:locale" content="en_US">
     <meta property="og:description" content="Website for Eric for his blog and things.">
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
-    <link rel="canonical" href="https://saghen.github.io/Eric-Portfolio/">
-    <meta property="og:url" content="https://saghen.github.io/Eric-Portfolio/">
-    <meta property="og:site_name" content="Sea of Technology">
+    <link rel="canonical" href="https://saghen.com/blog/">
+    <meta property="og:url" content="https://saghen.com/blog/">
+    <meta property="og:site_name" content="Sea of Electrons">
 </head>
 
 <body>
@@ -63,8 +64,8 @@
     <div id="wrapper">
         <div style="padding: 110px 40px;">
             <div>
-                <span style="color: #888;">{{ tag }}</span>
-                <h1 style="font-size: 6em; text-align:center; margin: 20px 0;">{{ title }}</h1>
+                <span style="color: #888;">{{ topic }}</span>
+                <h1 id="post-title">{{ title }}</h1>
             </div>
         </div>
         <div id="content-wrapper">
@@ -119,7 +120,7 @@
                         splashImg: "",
                         title: "",
                         authorRole: "",
-                        tag: "",
+                        topic: "",
                         comments: [],
                         isLoggedIn: false
                     },
@@ -170,6 +171,7 @@
                                 },
                                 theme: 'snow'
                             });
+                            console.log(json)
                             editor.setContents(JSON.parse(json.content));
                             for (let parent of document.getElementsByTagName('p')) {
                                 if (parent.children.length == 0) continue;

@@ -7,7 +7,6 @@ body {
 }
 
 .card {
-    border-radius: 10px;
     background: #fff;
     padding: 40px;
     margin: 20px;
@@ -50,6 +49,8 @@ body>form>*>*+* {
 }
 
 .ql-editor {
+    display: flex;
+    flex-direction: column;
     line-height: 1.6em;
 }
 
