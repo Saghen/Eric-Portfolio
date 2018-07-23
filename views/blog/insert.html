@@ -133,7 +133,7 @@
             data.author = toTitleCase(form.author.value);
             data.length = Math.ceil(editor.getLength() / 4.5 / 450) + ' mins';
             data.previewcontent = form.previewcontent.value;
-            data.content = JSON.stringify(editor.getContents());
+            data.content = document.querySelector(".ql-editor").innerHTML;
             data.topic = form.topic.value;
             data.comments = [];
 

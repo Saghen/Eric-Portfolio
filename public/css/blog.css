@@ -110,7 +110,11 @@
     outline: none !important;
 }
 
-.pagination button:hover {
+.pagination-inactive {
+    color: #999;
+}
+
+.pagination button:hover:not(.pagination-inactive) {
     background: #000;
     color: #fff;
 }

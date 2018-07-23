@@ -6,7 +6,6 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="theme-color" content="#2a967b">
     <title>Sea of Electrons Blog</title>
-    <link href="https://fonts.googleapis.com/css?family=Assistant" rel="stylesheet">
     <link rel="stylesheet" href="../css/core.css">
     <link rel="stylesheet" href="../css/blog.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.1/css/all.css">
@@ -60,11 +59,11 @@
     <div id="blog-item-container">
         <blog-item v-for="item in blogposts" v-bind:post="item"></blog-item>
         <div class="pagination" v-show="maxPages > 1">
-            <button v-on:click="if(page > 1) page -= 1">
+            <button :class="[page == 1 ? 'pagination-inactive' : '']" v-on:click="if(page > 1) page -= 1">
                 <i class="fas fa-arrow-left"></i>
             </button>
             <span>{{ page }}</span>
-            <button v-on:click="if(page < maxPages) page += 1">
+            <button :class="[page == maxPages ? 'pagination-inactive' : '']" v-on:click="if(page < maxPages) page += 1;">
                 <i class="fas fa-arrow-right"></i>
             </button>
         </div>
@@ -103,13 +102,13 @@
             created() {
                 fetch(`https://${window.location.hostname}/api/blog/data`).then(res => res.json()).then(json => { 
                     blogData = json;
-                    this.blogposts = json.slice(0, 9);
+                    this.blogposts = json.slice(0, 10);
                     this.maxPages = Math.ceil(json.length / 10);
                 });
             },
-            methods: {
-                updatePage() {
-                    this.blogposts = blogData.slice(10 * (page - 1), 10 * (page - 1) + 9);
+            watch: {
+                page: function() {
+                    this.blogposts = blogData.slice(10 * (this.page - 1), 10 * (this.page - 1) + 10);
                 }
             }
         })
