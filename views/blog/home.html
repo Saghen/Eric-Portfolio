@@ -4,8 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <meta name="theme-color" content="#2a967b">
     <title>Sea of Electrons Blog</title>
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#26977c">
+    <meta name="theme-color" content="#2a967b">
     <link rel="stylesheet" href="../css/core.css">
     <link rel="stylesheet" href="../css/blog.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.1/css/all.css">
@@ -18,7 +24,6 @@
     <meta property="og:title" content="Sea of Electrons">
     <meta property="og:locale" content="en_US">
     <meta property="og:description" content="Website for Eric for his blog and things.">
-    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
     <link rel="canonical" href="https://saghen.com/blog/">
     <meta property="og:url" content="https://saghen.com/blog/">
     <meta property="og:site_name" content="Sea of Electrons">
@@ -30,12 +35,9 @@
             <a href="/" id="logo">
                 <svg viewBox="0 0 105 95">
                     <g>
-                        <path style="fill:#fff;" d="M 1.2027119,18.371517 H 66.149217 l -8.55263,14.699824 H 26.459683 L 60.402917,91.469733 H 43.030394 Z"
-                        />
-                        <path style="fill:#fff;" d="M 46.237625,34.541327 H 28.865105 L 61.471997,90.400663 103.56695,17.436072 94.747052,3.00352 61.471997,60.867371 Z"
-                        />
-                        <path style="fill:#fff;" d="M 9.7553378,1.800805 1.3363469,16.7679 68.955537,17.035169 53.186627,43.494851 61.605617,58.595571 93.945242,2.068077 Z"
-                        />
+                        <path style="fill:#fff;" d="M 1.2027119,18.371517 H 66.149217 l -8.55263,14.699824 H 26.459683 L 60.402917,91.469733 H 43.030394 Z" />
+                        <path style="fill:#fff;" d="M 46.237625,34.541327 H 28.865105 L 61.471997,90.400663 103.56695,17.436072 94.747052,3.00352 61.471997,60.867371 Z" />
+                        <path style="fill:#fff;" d="M 9.7553378,1.800805 1.3363469,16.7679 68.955537,17.035169 53.186627,43.494851 61.605617,58.595571 93.945242,2.068077 Z" />
                     </g>
                 </svg>
                 <span style="white-space: nowrap;">Sea of Electrons</span>
@@ -52,7 +54,8 @@
     <div id="hero">
         <div id="hero-text">
             <h1>Sea of Electrons</h1>
-            <span>Some pitch about your blog. Just gonna fill in some text here so you can see what it looks like when there is
+            <span>Some pitch about your blog. Just gonna fill in some text here so you can see what it looks like when
+                there is
                 some text to fill in the space.</span>
         </div>
     </div>
@@ -88,10 +91,14 @@
 
         blogApp = new Vue({
             el: '#blog-item-container',
-            data: { blogposts: [], page: 1, maxPages: 1 },
+            data: {
+                blogposts: [],
+                page: 1,
+                maxPages: 1
+            },
             created() {
                 console.time
-                fetch(`https://${window.location.hostname}/api/blog/data`).then(res => res.json()).then(json => { 
+                fetch(`https://${window.location.hostname}/api/blog/data`).then(res => res.json()).then(json => {
                     blogData = json;
                     this.blogposts = json.slice(0, 10);
                     this.maxPages = Math.ceil(json.length / 10);
