@@ -64,7 +64,13 @@ module.exports = (function () {
         res.json(data[req.query.author]);
     })
 
-    router.post('/addComment', (req, res) => {
+    let apiLimiter = new require('express-rate-limit')({
+        windowMs: 15 * 60 * 1000, // 15 minutes
+        max: 2,
+        delayMs: 0
+    });
+
+    router.post('/addComment', apiLimiter, (req, res) => {
         if (!req.query.id || !req.fields.author || !req.fields.content) res.status(400).json({ reason: 'No id sent in query string or the author or content was missing in the body.', success: false });
         let blogData = require(path.resolve(__mainDir, 'database/blog-info.json'));
 

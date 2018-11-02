@@ -12,7 +12,7 @@ module.exports = (function () {
         return res.sendFile(path.resolve(__mainDir, 'views/blog/home.html'));
     });
 
-    router.get('/post', function (req, res) {
+    router.get('/post/:id', function (req, res) {
         return res.sendFile(path.resolve(__mainDir, 'views/blog/post.html'));
     });
 

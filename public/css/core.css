@@ -495,6 +495,7 @@ header {
     transition: background 0.2s;
     z-index: 10;
     letter-spacing: 0.1em;
+    transform: translateZ(0);
 }
 
 header>div {

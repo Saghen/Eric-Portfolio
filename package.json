@@ -28,6 +28,7 @@
     "express": "^4.16.3",
     "express-formidable": "^1.0.0",
     "express-rate-limit": "^2.11.0",
-    "greenlock-express": "^2.3.2"
+    "greenlock-express": "^2.3.2",
+    "serve-favicon": "^2.5.0"
   }
 }

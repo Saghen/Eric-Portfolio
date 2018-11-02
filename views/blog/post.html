@@ -34,7 +34,7 @@
 <body>
     <header class="scrolled-header">
         <div>
-            <a href="./" id="logo">
+            <a href="/" id="logo">
                 <svg viewBox="0 0 105 95">
                     <g>
                         <path style="fill:#fff;" d="M 1.2027119,18.371517 H 66.149217 l -8.55263,14.699824 H 26.459683 L 60.402917,91.469733 H 43.030394 Z"
@@ -95,15 +95,7 @@
             </div>
 
             <script>
-                function getParameterByName(name, url) {
-                    if (!url) url = window.location.href;
-                    name = name.replace(/[\[\]]/g, "\\$&");
-                    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
-                        results = regex.exec(url);
-                    if (!results) return null;
-                    if (!results[2]) return '';
-                    return decodeURIComponent(results[2].replace(/\+/g, " "));
-                }
+                let id = window.location.href.substr(window.location.href.lastIndexOf('/') + 1);
 
                 let app = new Vue({
                     el: '#wrapper',
@@ -128,7 +120,7 @@
                                 document.getElementById('comment-add-incorrect').innerHTML = 'Author or Content is missing.'; document.getElementById('comment-add-incorrect').style.opacity = 1; 
                             }
 
-                            fetch(`https://${window.location.hostname}/api/blog/addComment?id=${getParameterByName("id")}`,
+                            fetch(`/api/blog/addComment?id=${id}`,
                                 {
                                     method: 'post',
                                     headers: {
@@ -142,22 +134,22 @@
                                     document.getElementById('comment-add-content').value = "";
                                     document.getElementById('comment-add-incorrect').style.opacity = 0;
 
-                                    fetch(`https://${window.location.hostname}/api/blog/data?id=${getParameterByName("id")}`).then(res => res.json()).then(json => {
+                                    fetch(`https://${window.location.hostname}/api/blog/data?id=${id}`).then(res => res.json()).then(json => {
                                         Object.assign(this, json);
                                     });
                                 });
                         },
                         removeComment(commentId) {
-                            fetch(`https://${window.location.hostname}/api/blog/removeComment?id=${getParameterByName("id")}&commentId=${commentId}`, { credentials: 'same-origin' })
+                            fetch(`https://${window.location.hostname}/api/blog/removeComment?id=${id}&commentId=${commentId}`, { credentials: 'same-origin' })
                                 .then(() => {
-                                    fetch(`https://${window.location.hostname}/api/blog/data?id=${getParameterByName("id")}`).then(res => res.json()).then(json => {
+                                    fetch(`https://${window.location.hostname}/api/blog/data?id=${id}`).then(res => res.json()).then(json => {
                                         Object.assign(this, json);
                                     });
                                 })
                         }
                     },
                     created() {
-                        fetch(`https://${window.location.hostname}/api/blog/data?id=${getParameterByName("id")}`).then(res => res.json()).then(json => {
+                        fetch(`https://${window.location.hostname}/api/blog/data?id=${id}`).then(res => res.json()).then(json => {
                             Object.assign(this, json);
 
                             document.querySelector('#blog-content').innerHTML = json.content;
